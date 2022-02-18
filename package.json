@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/MohammedNabil1324/Coursework-2/issues"
   },
-  "homepage": "https://github.com/MohammedNabil1324/Coursework-2#readme"
+  "homepage": "https://github.com/MohammedNabil1324/Coursework-2#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
