@@ -21,3 +21,7 @@ main{
     width: 200px;
     height: 120px;
 }
+
+#div{
+    border: 5px black;
+}
