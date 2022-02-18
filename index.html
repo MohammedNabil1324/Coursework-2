@@ -25,18 +25,6 @@
         <br />
       </header>
       <div v-if='showProduct'>
-      <select>
-        <option disabled value="">Sort</option>
-        <option v-on:>Subject</option>
-        <option v-on:>Location</option>
-        <option v-on:>Price</option>
-        <option v-on:>Availability</option>
-      </select>
-      <select>
-        <option disabled value="">Order</option>
-        <option v-on:>Ascending</option>
-        <option v-on:>Descending</option></select
-      ><br />
       <main id="lessons" v-for="lessons in lessons">
         <h2>{{lessons.subject}}</h2>
         <span id="icon"><i :class="lessons.icon"></i></span>
