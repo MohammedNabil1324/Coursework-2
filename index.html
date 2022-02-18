@@ -5,8 +5,104 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coursework 2</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"
+      integrity="sha512-vZWT27aGmde93huNyIV/K7YsydxaafHLynlJa/4aPy28/R1a/IxewUH4MWo7As5I33hpQ7JS24kwqy/ciIFgvg=="
+      crossorigin="anonymous"
+    />
 </head>
 <body>
-    
-</body>
+    <script src="JS/lesson.js"></script>
+    <div id="app">
+      <header>
+        <h1>{{sitename}}</h1>
+        <button id="cart" v-on:click="showCheckout" :disabled='cartCount<1'>
+          <i class="fas fa-shopping-cart"></i> Cart({{cartCount}})
+        </button>
+        <br />
+      </header>
+      <div v-if='showProduct'>
+      <select>
+        <option disabled value="">Sort</option>
+        <option v-on:>Subject</option>
+        <option v-on:>Location</option>
+        <option v-on:>Price</option>
+        <option v-on:>Availability</option>
+      </select>
+      <select>
+        <option disabled value="">Order</option>
+        <option v-on:>Ascending</option>
+        <option v-on:>Descending</option></select
+      ><br />
+      <main id="lessons" v-for="lessons in lessons">
+        <h2>{{lessons.subject}}</h2>
+        <span id="icon"><i :class="lessons.icon"></i></span>
+        <p>Location:{{lessons.location}}</p>
+        <p>Price:£{{lessons.price}}</p>
+        <p >Space:{{lessons.space}}</p>
+        <img id="img" v-bind:src="lessons.image" /><br />
+        <button :id="lessons.id-1" @click="addLesson" :disabled='lessons.space==0'>Add to Cart</button>
+        <div></div>
+      </div>
+      <div v-else>
+        <h2>Checkout</h2>
+        <form>
+          <label>Name:</label> 
+          <input type="text" v-model="detail" id="detail" type="text" required><br>
+          <label>Phone Number:</label> 
+          <input type="text" v-model="detail1" id="detail1" type="number" required><br>
+        </form>
+        <button :disabled="detail && detail1 === ''" @click="submitForm">Checkout</button>
+      </div>
+      </main>
+    </div>
+    <script>
+      let app1 = new Vue({
+        el: "#app",
+        data: {
+          sitename: app.sitename,
+          lessons: app.lessons,
+          cart: [],
+          showProduct: true,
+          disabled: false,
+          detail:"",
+          detail1:"",
+        },
+        methods: {
+          addLesson: function (e) {
+            this.cart.push(app.lessons[e.target.id].id);
+            this.lessons[e.target.id].space = this.lessons[e.target.id].space - 1;
+            if (this.lessons[e.target.id].space==0) {
+              disabled=true;
+            }
+          },
+
+          showCheckout: function() { 
+            this.showProduct = this.showProduct ? false : true 
+          },
+
+          submitForm: function(){
+            var Name = document.getElementById('detail').value;
+            var PhoneNumber = document.getElementById('detail1').value;
+            var NameRegex = /^[a-z ,.'-]+$/i;
+            var PhoneRegex = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+            var NameResult = NameRegex.test(Name);
+            var PhoneResult = PhoneRegex.test(PhoneNumber);
+            alert("Name Approval:"+NameResult + ", Phone Approval: "+PhoneResult);
+            if(NameResult=='True' && PhoneResult=='True'){
+              window.location.reload();
+            }
+          },
+
+        },
+        computed: {
+          cartCount: function () {
+            return this.cart.length || "";
+          },
+        },
+      });
+    </script>
+  </body>
 </html>
