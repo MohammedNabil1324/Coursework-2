@@ -1,4 +1,5 @@
 var express = require("express");
+var vue = require("vue");
 var path = require("path");
 var fs = require("fs");
 var mongodb = require("mongodb");
@@ -6,7 +7,7 @@ var mongodb = require("mongodb");
 var app = express();
 let db;
 
-let app1 = new Vue({
+let app1 = new vue({
   data: {
     sitename: "Lessons",
     lessons: {},
