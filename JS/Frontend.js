@@ -6,7 +6,8 @@ let app = new Vue({
     created: function () {
         fetch("https://coursewrk-2.herokuapp.com/collection/Lessons").then(
           function (response) {
-            response.json.then(function (json) {
+              response.setHeader('Access-Control-Allow-Origin','*');
+              response.json.then(function (json) {
               app.lessons = json;
             });
           }

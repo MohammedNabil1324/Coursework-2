@@ -34,7 +34,6 @@ app1.get("/collection/:collectionName", (req, res, next) => {
 });
 
 app1.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin','*');
   console.log("Request IP: " + req.url);
   console.log("Request date: " + new Date());
   next();
