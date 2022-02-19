@@ -1,27 +1,10 @@
 var express = require("express");
-var vue = require("vue");
 var path = require("path");
 var fs = require("fs");
-var mongodb = require("mongodb");
+var mongodb = require("mongodb").MongoClient;
 
 var app = express();
 let db;
-
-let app1 = new vue({
-  data: {
-    sitename: "Lessons",
-    lessons: {},
-  },
-  created: function () {
-    fetch("https://coursewrk-2.herokuapp.com/collection/Lessons").then(
-      function (response) {
-        response.json.then(function (json) {
-          app1.lessons = json;
-        });
-      }
-    );
-  },
-});
 
 const port = process.env.PORT || 3000;
 app.listen(port);
