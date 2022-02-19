@@ -9,8 +9,6 @@ let db;
 const port = process.env.PORT || 3000;
 app.listen(port);
 
-app.use(_json());
-
 MongoClient.connect(
   "mongodb+srv://ASDF:ASDF@cluster0.2a6e0.mongodb.net/CW",
   (err, client) => {
