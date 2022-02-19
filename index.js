@@ -9,12 +9,15 @@ let db;
 const port = process.env.PORT || 3000
 app.listen(port)
 
-MongoClient.connect(
-  "mongodb+srv://ASDF:ASDF@cluster0.2a6e0.mongodb.net/CW?retryWrites=true&w=majority",
-  (err, client) => {
-    db = client.db("webstore");
-  }
-);
+app.use(express.json())
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://ASDF:ASDF@cluster0.2a6e0.mongodb.net/CW?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  client.close();
+});
 
 app.use(function (req, res, next) {
   console.log("Request IP: " + req.url);
