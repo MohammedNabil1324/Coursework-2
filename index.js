@@ -1,7 +1,7 @@
-import express, { json as _json } from "express";
-import { join } from "path";
-import { stat } from "fs";
-import { MongoClient } from "mongodb";
+var express = require("express");
+var path = require("path");
+var fs = require("fs");
+var mongodb = require("mongodb");
 
 var app = express();
 let db;
@@ -57,17 +57,14 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (req, res, next) {
-  var filePath = join(__dirname, "static", req.url);
-  stat(filePath, function (err, fileInfo) {
+  var filePath = path.join(__dirname, "static", req.url);
+  fs.stat(filePath, function (err, fileInfo) {
     if (err) {
       next();
       return;
     }
-    if (fileInfo.isFile()) {
-      res.sendFile(filePath);
-    } else {
-      next();
-    }
+    if (fileInfo.isFile()) res.sendFile(filePath);
+    else next();
   });
 });
 
