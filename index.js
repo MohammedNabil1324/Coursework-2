@@ -6,6 +6,22 @@ import { MongoClient } from "mongodb";
 var app = express();
 let db;
 
+let app1 = new Vue({
+  data: {
+    sitename: "Lessons",
+    lessons: {},
+  },
+  created: function () {
+    fetch("https://coursewrk-2.herokuapp.com/collection/Lessons").then(
+      function (response) {
+        response.json.then(function (json) {
+          app1.lessons = json;
+        });
+      }
+    );
+  },
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port);
 
@@ -58,20 +74,4 @@ app.use(function (req, res, next) {
 app.use(function (req, res) {
   res.status(404);
   res.send("File not found!");
-});
-
-let app1 = new Vue({
-  data: {
-    sitename: "Lessons",
-    lessons: {},
-  },
-  created: function () {
-    fetch("https://coursewrk-2.herokuapp.com/collection/Lessons").then(
-      function (response) {
-        response.json.then(function (json) {
-          app1.lessons = json;
-        });
-      }
-    );
-  },
 });
