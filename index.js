@@ -2,10 +2,10 @@ var express = require("express");
 var path = require("path");
 var fs = require("fs");
 var MongoClient = require("mongodb").MongoClient;
+var http = require("http");
+
 var app1 = express();
 let db;
-
-res.setHeader('Access-Control-Allow-Origin','*');
 
 const port = process.env.PORT || 3000;
 app1.listen(port);
@@ -34,6 +34,7 @@ app1.get("/collection/:collectionName", (req, res, next) => {
 });
 
 app1.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin','*');
   console.log("Request IP: " + req.url);
   console.log("Request date: " + new Date());
   next();
