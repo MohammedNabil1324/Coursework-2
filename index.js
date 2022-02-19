@@ -1,7 +1,7 @@
-var express = require("express");
-var path = require("path");
-var fs = require("fs");
-const MongoClient = require("mongodb").MongoClient;
+import express, { json as _json } from "express";
+import { join } from "path";
+import { stat } from "fs";
+import { MongoClient } from "mongodb";
 
 var app = express();
 let db;
@@ -9,7 +9,7 @@ let db;
 const port = process.env.PORT || 3000;
 app.listen(port);
 
-app.use(express.json());
+app.use(_json());
 
 MongoClient.connect(
   "mongodb+srv://ASDF:ASDF@cluster0.2a6e0.mongodb.net/CW",
@@ -41,8 +41,8 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (req, res, next) {
-  var filePath = path.join(__dirname, "static", req.url);
-  fs.stat(filePath, function (err, fileInfo) {
+  var filePath = join(__dirname, "static", req.url);
+  stat(filePath, function (err, fileInfo) {
     if (err) {
       next();
       return;
