@@ -1,7 +1,7 @@
 var express = require("express");
 var path = require("path");
 var fs = require("fs");
-var mongodb = require("mongodb").MongoClient;
+var MongoClient = require("mongodb").MongoClient;
 var app1 = express();
 let db;
 
