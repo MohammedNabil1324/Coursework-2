@@ -5,6 +5,8 @@ var MongoClient = require("mongodb").MongoClient;
 var app1 = express();
 let db;
 
+res.setHeader('Access-Control-Allow-Origin','*');
+
 const port = process.env.PORT || 3000;
 app1.listen(port);
 
