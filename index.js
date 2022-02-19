@@ -16,6 +16,22 @@ MongoClient.connect("mongodb+srv://ASDF:ASDF@cluster0.2a6e0.mongodb.net/CW?retry
   }
 );
 
+app.param("collectionName", (req, res, next, collectionName) => {
+  req.collection = db.collection(collectionName);
+  return next();
+});
+
+app.get("/", (req, res, next) => {
+  res.send("Select a collection");
+});
+
+app.get("/collection/:collectionName", (req, res, next) => {
+  req.collection.find({}).toArray((e, results) => {
+    if (e) return next(e);
+    res.send(results);
+  });
+});
+
 app.use(function (req, res, next) {
   console.log("Request IP: " + req.url);
   console.log("Request date: " + new Date());
@@ -44,20 +60,4 @@ app.use(function (req, res, next) {
 app.use(function (req, res) {
   res.status(404);
   res.send("File not found!");
-});
-
-app.param("collectionName", (req, res, next, collectionName) => {
-  req.collection = db.collection(collectionName);
-  return next();
-});
-
-app.get("/", (req, res, next) => {
-  res.send("Select a collection");
-});
-
-app.get("/collection/:collectionName", (req, res, next) => {
-  req.collection.find({}).toArray((e, results) => {
-    if (e) return next(e);
-    res.send(results);
-  });
 });
