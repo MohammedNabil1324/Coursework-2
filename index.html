@@ -48,16 +48,16 @@
       </main>
     </div>
     <script>
-      let app = new Vue({
+      let app1 = new Vue({
         el: "#app",
         data: {
-          sitename: "Lessons",
+          sitename: app.sitename,
+          lessons: app.lessons,
           cart: [],
           showProduct: true,
           disabled: false,
           detail:"",
           detail1:"",
-          lessons: {},
         },
         methods: {
           addLesson: function (e) {
@@ -90,15 +90,6 @@
           cartCount: function () {
             return this.cart.length || "";
           },
-        },
-        created: function () {
-          fetch("https://coursewrk-2.herokuapp.com/collection/Lessons").then(
-            function (response) {
-              response.json.then(function (json) {
-                app.lessons = json;
-              });
-            }
-          );
         },
       });
     </script>
