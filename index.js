@@ -6,18 +6,15 @@ const MongoClient = require("mongodb").MongoClient;
 var app = express();
 let db;
 
-const port = process.env.PORT || 3000
-app.listen(port)
+const port = process.env.PORT || 3000;
+app.listen(port);
 
-app.use(express.json())
+app.use(express.json());
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://ASDF:ASDF@cluster0.2a6e0.mongodb.net/CW?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  client.close();
-});
+MongoClient.connect("mongodb+srv://ASDF:ASDF@cluster0.2a6e0.mongodb.net/CW?retryWrites=true&w=majority",(err, client) => {
+    db = client.db("webstore");
+  }
+);
 
 app.use(function (req, res, next) {
   console.log("Request IP: " + req.url);
@@ -49,7 +46,7 @@ app.use(function (req, res) {
   res.send("File not found!");
 });
 
-app.param("collectionName", (req, res, next, collectionName) => {
+app.param("Lessons", (req, res, next, collectionName) => {
   req.collection = db.collection(collectionName);
   return next();
 });
