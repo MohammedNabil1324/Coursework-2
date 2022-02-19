@@ -2,7 +2,7 @@ var express = require("express");
 var path = require("path");
 var fs = require("fs");
 var mongodb = require("mongodb").MongoClient;
-var app = express();
+var app1 = express();
 let db;
 
 let app = new Vue({
@@ -22,7 +22,7 @@ let app = new Vue({
   });
 
 const port = process.env.PORT || 3000;
-app.listen(port);
+app1.listen(port);
 
 MongoClient.connect(
   "mongodb+srv://ASDF:ASDF@cluster0.2a6e0.mongodb.net/CW",
@@ -31,29 +31,29 @@ MongoClient.connect(
   }
 );
 
-app.param("collectionName", (req, res, next, collectionName) => {
+app1.param("collectionName", (req, res, next, collectionName) => {
   req.collection = db.collection(collectionName);
   return next();
 });
 
-app.get("/", (req, res, next) => {
+app1.get("/", (req, res, next) => {
   res.send("Select a collection");
 });
 
-app.get("/collection/:collectionName", (req, res, next) => {
+app1.get("/collection/:collectionName", (req, res, next) => {
   req.collection.find({}).toArray((e, results) => {
     if (e) return next(e);
     res.send(results);
   });
 });
 
-app.use(function (req, res, next) {
+app1.use(function (req, res, next) {
   console.log("Request IP: " + req.url);
   console.log("Request date: " + new Date());
   next();
 });
 
-app.use(function (req, res, next) {
+app1.use(function (req, res, next) {
   var filePath = path.join(__dirname, "static", req.url);
   fs.stat(filePath, function (err, fileInfo) {
     if (err) {
@@ -65,7 +65,7 @@ app.use(function (req, res, next) {
   });
 });
 
-app.use(function (req, res) {
+app1.use(function (req, res) {
   res.status(404);
   res.send("File not found!");
 });
