@@ -46,7 +46,7 @@ app.use(function (req, res) {
   res.send("File not found!");
 });
 
-app.param("Lessons", (req, res, next, collectionName) => {
+app.param("collectionName", (req, res, next, collectionName) => {
   req.collection = db.collection(collectionName);
   return next();
 });
@@ -55,7 +55,7 @@ app.get("/", (req, res, next) => {
   res.send("Select a collection");
 });
 
-app.get("/collection/:collectionName", (req, res, next) => {
+app.get("/collection/:Lessons", (req, res, next) => {
   req.collection.find({}).toArray((e, results) => {
     if (e) return next(e);
     res.send(results);
