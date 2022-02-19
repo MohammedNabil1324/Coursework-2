@@ -11,7 +11,9 @@ app.listen(port);
 
 app.use(express.json());
 
-MongoClient.connect("mongodb+srv://ASDF:ASDF@cluster0.2a6e0.mongodb.net/CW?retryWrites=true&w=majority",(err, client) => {
+MongoClient.connect(
+  "mongodb+srv://ASDF:ASDF@cluster0.2a6e0.mongodb.net/CW",
+  (err, client) => {
     db = client.db("webstore");
   }
 );
