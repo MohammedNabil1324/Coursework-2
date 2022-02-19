@@ -5,6 +5,10 @@ const MongoClient = require("mongodb").MongoClient;
 
 var app = express();
 let db;
+
+const port = process.env.PORT || 3000
+app.listen(port)
+
 MongoClient.connect(
   "mongodb+srv://ASDF:ASDF@cluster0.2a6e0.mongodb.net/CW?retryWrites=true&w=majority",
   (err, client) => {
